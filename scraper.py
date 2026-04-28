@@ -2,12 +2,62 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, quote_plus
+import unicodedata
+from difflib import SequenceMatcher
 
 BASE_URL = "https://www.lojamaeto.com"
 
 
 def limpar_texto(texto):
     return re.sub(r"\s+", " ", texto).strip()
+
+def limpar_texto(texto):
+    return re.sub(r"\s+", " ", texto).strip()
+
+
+def normalizar_busca(texto):
+    texto = texto.lower()
+    texto = unicodedata.normalize("NFKD", texto)
+    texto = "".join(c for c in texto if not unicodedata.combining(c))
+    texto = re.sub(r"[^a-z0-9\s]", " ", texto)
+    texto = re.sub(r"\s+", " ", texto).strip()
+    return texto
+
+
+def palavra_parecida(palavra, referencia):
+    for item in referencia.split():
+        similaridade = SequenceMatcher(None, palavra, item).ratio()
+
+        if similaridade >= 0.80:
+            return True
+
+    return False
+
+
+def produto_combina_com_termo(termo, referencia):
+    termo_normalizado = normalizar_busca(termo)
+    referencia_normalizada = normalizar_busca(referencia)
+
+    if termo_normalizado in referencia_normalizada:
+        return True
+
+    palavras = [
+        palavra for palavra in termo_normalizado.split()
+        if len(palavra) >= 3
+    ]
+
+    if not palavras:
+        return False
+
+    encontradas = 0
+
+    for palavra in palavras:
+        if palavra in referencia_normalizada or palavra_parecida(palavra, referencia_normalizada):
+            encontradas += 1
+
+    percentual = encontradas / len(palavras)
+
+    return percentual >= 0.60
 
 
 def converter_preco(valor):
@@ -224,10 +274,9 @@ def buscar_links_produtos(termo):
             if not texto_link:
                 continue
 
-            termo_normalizado = termo.lower()
-            referencia = f"{texto_link} {url_completa}".lower()
+            referencia = f"{texto_link} {url_completa}"
 
-            if termo_normalizado not in referencia:
+            if not produto_combina_com_termo(termo, referencia):
                 continue
 
             if url_completa not in links:
