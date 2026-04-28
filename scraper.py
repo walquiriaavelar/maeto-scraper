@@ -60,41 +60,53 @@ def extrair_titulo(titulo_completo):
 def extrair_informacoes_tecnicas(texto):
     linhas = [linha.strip() for linha in texto.splitlines() if linha.strip()]
 
-    capturando = False
-    informacoes = []
-
-    inicios = [
-        "Informações Técnicas",
-        "Informações do Produto",
-        "Descrição do Produto"
+    chaves_tecnicas = [
+        "Marca",
+        "Formato anatômico",
+        "Dimensões",
+        "Temperatura",
+        "Material",
+        "Instalação",
+        "Vida Útil",
+        "Garantia"
     ]
 
     paradas = [
-        "Produtos relacionados",
         "Você também deve gostar",
-        "Opinião dos Clientes",
+        "Produtos relacionados",
         "Avaliações",
-        "Dúvidas sobre o produto",
-        "Compartilhe",
-        "INSTITUCIONAL",
-        "ATENDIMENTO",
-        "CONTATO",
-        "Minha Conta",
-        "Formas de pagamento"
+        "Descrição do Produto",
+        "Informações do Produto"
     ]
 
-    for linha in linhas:
-        if any(inicio.lower() in linha.lower() for inicio in inicios):
+    informacoes = []
+    capturando = False
+
+    i = 0
+    while i < len(linhas):
+        linha = linhas[i]
+
+        if "Informações Técnicas" in linha:
             capturando = True
+            i += 1
             continue
 
+        if capturando and any(parada in linha for parada in paradas):
+            break
+
         if capturando:
-            if any(parada.lower() in linha.lower() for parada in paradas):
-                break
+            if linha in chaves_tecnicas and i + 1 < len(linhas):
+                chave = linha
+                valor = linhas[i + 1]
 
-            informacoes.append(linha)
+                if valor not in chaves_tecnicas:
+                    informacoes.append(f"{chave}: {valor}")
+                    i += 2
+                    continue
 
-    return "\n".join(informacoes).strip()
+        i += 1
+
+    return "\n".join(informacoes)
 
 
 def extrair_preco(texto):

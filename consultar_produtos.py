@@ -38,8 +38,13 @@ def listar_produtos():
         print(f"Preço: R$ {produto['preco']}")
         print(f"Preço PIX: R$ {produto['preco_pix']}")
         print(f"Parcelas: {produto['numero_parcelas']}x de R$ {produto['valor_parcela']}")
-        print(f"Informações técnicas: {produto['informacoes_tecnicas']}")
-        print(f"URL: {produto['url']}")
+        print("Informações técnicas:")
+
+        if produto["informacoes_tecnicas"]:
+            print(produto["informacoes_tecnicas"])
+        else:
+            print("Nenhuma informação técnica cadastrada.")
+            print(f"URL: {produto['url']}")
 
     conexao.close()
 
