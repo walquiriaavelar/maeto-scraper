@@ -47,22 +47,23 @@ maeto-scraper/
 │
 └── data/
 
-Modelagem do banco de dados
+## Modelagem do banco de dados
 
-O banco de dados possui uma tabela chamada produtos.
+O banco de dados possui uma tabela chamada `produtos`.
 
-Campo	                Tipo	Descrição
-sku	                    TEXT	Chave primária do produto
-titulo	                TEXT	Nome do produto
-preco	                REAL	Preço principal do produto
-preco_pix	            REAL	Preço do produto no PIX
-valor_parcela	        REAL	Valor de cada parcela
-numero_parcelas	        INTEGER	Quantidade de parcelas
-informacoes_tecnicas	TEXT	Informações técnicas do produto
-url	                    TEXT	Link da página do produto
-data_atualizacao	    TEXT	Data e hora da última atualização
+| Campo | Tipo | Descrição |
+|---|---|---|
+| sku | TEXT | Chave primária do produto |
+| titulo | TEXT | Nome do produto |
+| preco | REAL | Preço principal do produto |
+| preco_pix | REAL | Preço do produto no PIX |
+| valor_parcela | REAL | Valor de cada parcela |
+| numero_parcelas | INTEGER | Quantidade de parcelas |
+| informacoes_tecnicas | TEXT | Informações técnicas do produto |
+| url | TEXT | Link da página do produto |
+| data_atualizacao | TEXT | Data e hora da última atualização |
 
-Como executar o projeto
+## Como executar o projeto
 1. Clonar o repositório
 git clone URL_DO_REPOSITORIO
 cd maeto-scraper
