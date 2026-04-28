@@ -64,6 +64,8 @@ O banco de dados possui uma tabela chamada `produtos`.
 | url | TEXT | Link da página do produto |
 | data_atualizacao | TEXT | Data e hora da última atualização |
 
+O campo `sku` foi definido como chave primária para garantir que cada produto seja único no banco. Caso uma nova busca retorne um produto já cadastrado, a aplicação atualiza os dados existentes em vez de criar um registro duplicado.
+
 ## Como executar o projeto
 1. Clonar o repositório
 git clone URL_DO_REPOSITORIO
