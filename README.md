@@ -34,19 +34,15 @@ Para cada produto encontrado, são armazenadas as seguintes informações:
 
 ## Estrutura do projeto
 
-```text
-maeto-scraper/
-│
-├── app.py
-├── scraper.py
-├── database.py
-├── create_database.py
-├── consultar_produtos.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-│
-└── data/
+- `app.py` — arquivo principal da aplicação.
+- `scraper.py` — responsável pela busca e extração dos dados do site.
+- `database.py` — responsável pela conexão, criação da tabela e salvamento no SQLite.
+- `create_database.py` — script para criar o banco de dados.
+- `consultar_produtos.py` — script para consultar os produtos salvos.
+- `requirements.txt` — dependências do projeto.
+- `README.md` — documentação do projeto.
+- `.gitignore` — arquivos ignorados pelo Git.
+- `data/` — pasta onde o banco SQLite é gerado localmente.
 
 ## Modelagem do banco de dados
 
