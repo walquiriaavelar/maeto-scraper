@@ -8,6 +8,7 @@ Aplicação em Python para buscar produtos no site da Loja Maeto, extrair inform
 - Extração de dados de produtos encontrados.
 - Armazenamento dos dados em banco SQLite3.
 - Atualização automática caso o produto já exista no banco.
+- Tratamento de conflitos pelo SKU: caso um produto já exista no banco, os dados são atualizados automaticamente em vez de serem duplicados.
 - Uso do SKU como chave única para evitar duplicidade.
 
 ## Dados extraídos
