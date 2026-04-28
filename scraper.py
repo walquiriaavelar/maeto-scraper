@@ -63,27 +63,38 @@ def extrair_informacoes_tecnicas(texto):
     capturando = False
     informacoes = []
 
+    inicios = [
+        "Informações Técnicas",
+        "Informações do Produto",
+        "Descrição do Produto"
+    ]
+
     paradas = [
+        "Produtos relacionados",
         "Você também deve gostar",
         "Opinião dos Clientes",
+        "Avaliações",
         "Dúvidas sobre o produto",
+        "Compartilhe",
         "INSTITUCIONAL",
         "ATENDIMENTO",
-        "CONTATO"
+        "CONTATO",
+        "Minha Conta",
+        "Formas de pagamento"
     ]
 
     for linha in linhas:
-        if "Informações Técnicas" in linha:
+        if any(inicio.lower() in linha.lower() for inicio in inicios):
             capturando = True
             continue
 
         if capturando:
-            if any(parada in linha for parada in paradas):
+            if any(parada.lower() in linha.lower() for parada in paradas):
                 break
 
             informacoes.append(linha)
 
-    return "\n".join(informacoes)
+    return "\n".join(informacoes).strip()
 
 
 def extrair_preco(texto):

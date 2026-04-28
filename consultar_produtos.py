@@ -21,6 +21,7 @@ def listar_produtos():
             preco_pix,
             numero_parcelas,
             valor_parcela,
+            informacoes_tecnicas,
             url
         FROM produtos
         ORDER BY titulo
@@ -37,6 +38,7 @@ def listar_produtos():
         print(f"Preço: R$ {produto['preco']}")
         print(f"Preço PIX: R$ {produto['preco_pix']}")
         print(f"Parcelas: {produto['numero_parcelas']}x de R$ {produto['valor_parcela']}")
+        print(f"Informações técnicas: {produto['informacoes_tecnicas']}")
         print(f"URL: {produto['url']}")
 
     conexao.close()
